@@ -2,6 +2,19 @@
 
 API pequeña en Go, Gin, GORM y MySQL. Crea las tablas automáticamente al arrancar.
 
+## Estructura
+
+| Carpeta o archivo | Responsabilidad |
+| --- | --- |
+| `main.go` | Iniciar la aplicación y leer el puerto |
+| `internal/database/` | Conexión a MySQL y creación de tablas |
+| `internal/models/` | Modelos de proveedor y producto |
+| `internal/httpapi/router.go` | Registrar las rutas y el endpoint de salud |
+| `internal/httpapi/proveedores.go` | Endpoints de proveedores |
+| `internal/httpapi/productos.go` | Endpoints de productos |
+| `internal/httpapi/consultas.go` | Consultas SQL de resumen y stock bajo |
+| `internal/httpapi/helpers.go` | Validación de parámetros y respuestas de error comunes |
+
 ## Iniciar
 
 ```bash
