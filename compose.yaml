@@ -1,0 +1,31 @@
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: productos_db
+      MYSQL_USER: productos
+      MYSQL_PASSWORD: productos
+      MYSQL_ROOT_PASSWORD: root_local
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u productos -pproductos --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "3306:3306"
+
+  api:
+    build: .
+    environment:
+      PORT: "8080"
+      DB_DSN: "productos:productos@tcp(db:3306)/productos_db?charset=utf8mb4&parseTime=True&loc=Local"
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql_data:
